@@ -9,7 +9,7 @@ from requests import get
 load_dotenv()
 
 # create the MCP server instance with a name
-mcp = FastMCP(name="LangChain MCP Server")
+mcp = FastMCP(name="MCP Server")
 
 # create Tavily web search client
 ClientTavily = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
@@ -45,6 +45,15 @@ Answer questions clearly.
 """
 
 # 🏁 Run the server with stdio transport
+# if __name__ == "__main__":
+#     print("Starting LangChain MCP server (stdio)…")
+#     mcp.run(transport="stdio")
+
+# 🏁 Run the server with streamable HTTP transport
 if __name__ == "__main__":
-    print("Starting LangChain MCP server (stdio)…")
-    mcp.run(transport="stdio")
+    print("Starting MCP server (streamable HTTP)…")
+    mcp.run(
+        transport="http",     # streamable HTTP
+        host="0.0.0.0",        # network bind
+        port=8000              # chosen port
+    )
